@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Home
+        </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    </head>
+    <body style="margin-top: 40px;">
+        <div class="container">
+            <div>
+                <h1>Students list</h1>
+                <form action="/courses" method="GET" style="float:right; margin-top: -80px;">
+                    <h1><a href="/courses">Go To Courses</a></h1>
+                </form>
+            </div>
+            <div>
+                <p>No student found. Add the students now!</p>
+                <form action="/student/create" id="get-data">
+                    <input type="submit" name="submit_button" class="btn btn-primary" value="+ Add Student">
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

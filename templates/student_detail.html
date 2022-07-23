@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Complete Information</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    </head>
+    <body style="margin-top: 40px;">
+        <div class="container">
+        <h1><center>Student Details</center></h1>
+        <table id="personal-details" class="table table-hover">
+            <tr>
+                <th scope="col">Roll Number</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+            </tr>
+            <tr>
+                <th scope="row">{{student_id["roll_number"]}}</td>
+                <td>{{student_id["first_name"]}}</td>
+                <td>{{student_id["last_name"]}}</td>
+            </tr>
+        </table><br>
+        <h1><center>Enrollment List</center></h1>
+        <table id="enroll-table" class="table table-hover">
+            <tr>
+                <th scope="col">S. No.</th>
+                <th scope="col">Course Code</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Course Description</th>
+                <th scope="col">Actions</th>
+            </tr>
+            {% for course in course_id %}
+            <tr>
+                <th scope="row">{{loop.index}}</td>
+                <td>{{course["course_code"]}}</td>
+                <td>{{course["course_name"]}}</td>
+                <td>{{course["course_description"]}}</td>
+                <td>
+                    <form method="GET" action=“/student/{{student_id["student_id"]}}/withdraw/{{course["course_id"]}}”>
+                        <a href="/student/{{student_id["student_id"]}}/withdraw/{{course["course_id"]}}"><button type="button" class="btn btn-outline-danger">Withdraw</button></a>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="/"><input type="submit" value="Go Back" class="btn btn-primary"></a>
+    </div>
+    </body>
+</html>

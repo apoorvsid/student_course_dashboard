@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Info</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+</head>
+<body style="margin-top:40px ;">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Courses list</h1>
+            </div>
+            <div class="col">
+                <div style="float: right;">
+                    <form action="/" method="GET">
+                        <h2><a href="/"><button type="button" class="btn btn-outline-dark">Go To Students</button></a></h2>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <table id="all-courses" class="table table-hover">
+            <tr>
+                <th scope="row">SNo</th>
+                <th scope="row">Course Code</th>
+                <th scope="row">Course Name</th>
+                <th scope="row">Course Description</th>
+                <th scope="row">Actions</th>
+            </tr>
+            {% for course in c_list %}
+            <tr>
+                <th scope="col">{{loop.index}}</td>
+                <td><a href="/course/{{course["course_id"]}}"><button type="button" class="btn btn-outline-info">{{course["course_code"]}}</button></a></td>
+                <td>{{course["course_name"]}}</td>
+                <td>{{course["course_description"]}}</td>
+                <td>
+                    <div style="display: inline-block;">
+                        <form action="/course/{{course["course_id"]}}/update" method="GET">
+                            <a href="/course/{{course["course_id"]}}/update"><button type="button" class="btn btn-outline-success">Update</button></a>
+                        </form>
+                    </div>
+                    <div style="display: inline-block;"> 
+                        <form action="/course/{{course["course_id"]}}/delete" method="GET">
+                            <a href="/course/{{course["course_id"]}}/delete"><button type="button" class="btn btn-outline-danger">Delete</button></a>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <form action="/course/create" id="get-data">
+            <input type="submit" name="submit_button" class="btn btn-primary" value="+ Add Course">
+        </form>
+    </div>
+</body>
+</html>

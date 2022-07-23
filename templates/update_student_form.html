@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Home
+        </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    </head>
+    <body style="margin-top: 40px;">
+        <div class="container">
+            <h1>Update Student</h1>
+            <div class="form-group">
+                <form action="/student/{{student_id["student_id"]}}/update" method="POST" id="update-student-form">
+                    <div>
+                        <label>Roll Number:</label>
+                        <input type="text" name="roll" value="{{student_id["roll_number"]}}" class="form-control" disabled="disabled"/>
+                    </div>
+                    <div>
+                        <label>First Name:</label>
+                        <input type="text" name="f_name" value="{{student_id["first_name"]}}" class="form-control" required />
+                    </div>
+                    <div>
+                        <label>Last Name:</label>
+                        <input type="text" name="l_name" class="form-control" value="{{student_id["last_name"]}}" />
+                    </div>
+                    <div style="margin-top:10px;">
+                        <label for="courses">Select Course: </label>
+                        <select class="form-select-sm" name="course" style="width:130px;" required>
+                            <option value="" selected>Choose...</option>
+                            {% for cor in course %}
+                            <option value="{{cor["course_id"]}}">{{cor["course_name"]}}</option>
+                            {% endfor %}
+                        </select>
+                    </div><br>
+                    <div>
+                        <input type="submit" class="btn btn-primary" value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

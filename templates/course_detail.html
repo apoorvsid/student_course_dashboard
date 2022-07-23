@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Information</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body style="margin-top: 40px;">
+    <div class="container">
+        <h1>
+            <center>Course Details</center>
+        </h1>
+        <table id="course-detail" class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Course Code</th>
+                    <th scope="col">Course Name</th>
+                    <th scope="col">Course Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">{{course_id["course_code"]}}</td>
+                    <td>{{course_id["course_name"]}}</td>
+                    <td>{{course_id["course_description"]}}</td>
+                </tr>
+            </tbody>
+        </table><br>
+        <h1>
+            <center>Enrollment Details</center>
+        </h1>
+        <table id="course-table" class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">SNo</th>
+                    <th scope="col">Roll Number</th>
+                    <th scope="col">Student First Name</th>
+                    <th scope="col">Student Last Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stu in student_id %}
+                <tr>
+                    <th scope="row">{{loop.index}}</td>
+                    <td>{{stu["roll_number"]}}</td>
+                    <td>{{stu["first_name"]}}</td>
+                    <td>{{stu["last_name"]}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/courses"><input type="submit" value="Go Back" class="btn btn-primary"></a>
+    </div>
+</body>
+</html>

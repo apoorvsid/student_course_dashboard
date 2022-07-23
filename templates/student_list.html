@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Home
+        </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    </head>
+    <body style="margin-top: 40px;">
+        <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Students list</h1>
+            </div>
+            <div class="col">
+                <div style="float: right;">
+                    <form action="/courses" method="GET">
+                        <h2><a href="/courses"><button type="button" class="btn btn-outline-dark">Go To Courses</button></a></h2>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div>
+            <table id = "all-students" class="table table-hover">
+                <tr>
+                    <th scope="col">SNo</th>
+                    <th scope="col">Roll Number</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                {% for stud in student %}
+                <tr>
+                    <th scope="row">{{loop.index}}</td>
+                    <td><a href="/student/{{stud["student_id"]}}"><button type="button" class="btn btn-outline-info">{{stud["roll_number"]}}</button></a></td>
+                    <td>{{stud["first_name"]}}</td>
+                    <td>{{stud["last_name"]}}</td>
+                    <td>
+                        <div style="display: inline-block;">
+                            <form action="/student/{{stud["student_id"]}}/update" method="GET">
+                                <a href="/student/{{stud["student_id"]}}/update" type="button"><button type="button" class="btn btn-outline-success">Update</button></a>
+                            </form>
+                        </div>
+                        <div style="display: inline-block;">
+                            <form action="/student/{{stud["student_id"]}}/delete" method="GET">    
+                                <a href="/student/{{stud["student_id"]}}/delete" type="button"><button type="button" class="btn btn-outline-danger">Delete</button></a>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <form action="/student/create" method="GET" id="get-data">
+                <input type="submit" name="submit_button" class="btn btn-primary" value="+ Add Student">
+            </form>
+        </div>
+    </div>
+    </body>
+</html>

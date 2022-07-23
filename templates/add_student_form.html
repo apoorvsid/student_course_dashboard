@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Home
+        </title>
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    </head>
+    <body style="margin-top:40px ;">
+        <div class="container">
+            <h1>Add a Student</h1><br>
+            <div class="form-group">
+                <form action="/student/create" method="POST" id="create-student-form">
+                    <div>
+                        <label>Roll Number:</label>
+                        <input type="text" name="roll" class="form-control" required />
+                    </div>
+                    <div>
+                        <label>First Name:</label>
+                        <input type="text" name="f_name" class="form-control" required />
+                    </div>
+                    <div>
+                        <label>Last Name:</label>
+                        <input type="text" class="form-control" name="l_name" /><br>
+                    </div>
+                    <div>
+                        <input class="btn btn-primary" type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
