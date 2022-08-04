@@ -8,8 +8,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.orm import relationship
 
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///week7_database.sqlite3"
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://ygcigsvtdnaewn:87e1a0be2cd92016afe089122084b72d30e3b3e8310fb6e11a06f1731104ee71@ec2-44-195-100-240.compute-1.amazonaws.com:5432/d6mtkon67hvk5t"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///week7_database.sqlite3"
 db = SQLAlchemy()
 db.init_app(app)
 app.app_context().push()
@@ -61,8 +60,7 @@ def get_data():
         roll_no = request.form["roll"]
         first_name = request.form["f_name"]
         last_name = request.form["l_name"]
-        # engine = create_engine("sqlite:///./week7_database.sqlite3")
-        engine = create_engine("postgres://ygcigsvtdnaewn:87e1a0be2cd92016afe089122084b72d30e3b3e8310fb6e11a06f1731104ee71@ec2-44-195-100-240.compute-1.amazonaws.com:5432/d6mtkon67hvk5t")
+        engine = create_engine("sqlite:///./week7_database.sqlite3")
         with Session(engine, autoflush=False) as session:
             db.session.begin()
             try:
@@ -90,7 +88,7 @@ def update_info(student_iid):
         last_name = request.form["l_name"]
         c_id = request.form["course"]
 
-        engine = create_engine("postgres://ygcigsvtdnaewn:87e1a0be2cd92016afe089122084b72d30e3b3e8310fb6e11a06f1731104ee71@ec2-44-195-100-240.compute-1.amazonaws.com:5432/d6mtkon67hvk5t")
+        engine = create_engine("sqlite:///./week7_database.sqlite3")
         with Session(engine, autoflush=False) as session:
             db.session.begin()
             try:
@@ -110,7 +108,7 @@ def update_info(student_iid):
 
 @app.route("/student/<int:student_iid>/delete", methods=["GET", "POST"])
 def delete_info(student_iid):
-    engine = create_engine("postgres://ygcigsvtdnaewn:87e1a0be2cd92016afe089122084b72d30e3b3e8310fb6e11a06f1731104ee71@ec2-44-195-100-240.compute-1.amazonaws.com:5432/d6mtkon67hvk5t")
+    engine = create_engine("sqlite:///./week7_database.sqlite3")
     with Session(engine, autoflush=False) as session:
         db.session.begin()
         try:
@@ -139,7 +137,7 @@ def complete_info(student_iid):
 
 @app.route("/student/<int:student_id>/withdraw/<int:course_id>", methods=["GET","POST"])
 def withdraw_course(student_id, course_id):
-    engine = create_engine("postgres://ygcigsvtdnaewn:87e1a0be2cd92016afe089122084b72d30e3b3e8310fb6e11a06f1731104ee71@ec2-44-195-100-240.compute-1.amazonaws.com:5432/d6mtkon67hvk5t")
+    engine = create_engine("sqlite:///./week7_database.sqlite3")
     with Session(engine, autoflush=False) as session:
         db.session.begin()
         try:
@@ -175,7 +173,7 @@ def get_course_data():
         c_code = request.form["code"]
         c_name = request.form["c_name"]
         c_desc = request.form["desc"]
-        engine = create_engine("postgres://ygcigsvtdnaewn:87e1a0be2cd92016afe089122084b72d30e3b3e8310fb6e11a06f1731104ee71@ec2-44-195-100-240.compute-1.amazonaws.com:5432/d6mtkon67hvk5t")
+        engine = create_engine("sqlite:///./week7_database.sqlite3")
         with Session(engine, autoflush=False) as session:
             db.session.begin()
             try:
@@ -199,7 +197,7 @@ def update_course(course_id):
     elif request.method=="POST":
         n_name = request.form["c_name"]
         n_desc = request.form["desc"]
-        engine = create_engine("postgres://ygcigsvtdnaewn:87e1a0be2cd92016afe089122084b72d30e3b3e8310fb6e11a06f1731104ee71@ec2-44-195-100-240.compute-1.amazonaws.com:5432/d6mtkon67hvk5t")
+        engine = create_engine("sqlite:///./week7_database.sqlite3")
         with Session(engine, autoflush=False) as session:
             db.session.begin()
             try:
@@ -215,7 +213,7 @@ def update_course(course_id):
 
 @app.route("/course/<int:course_id>/delete", methods=["GET", "POST"])
 def delete_course(course_id):
-    engine = create_engine("postgres://ygcigsvtdnaewn:87e1a0be2cd92016afe089122084b72d30e3b3e8310fb6e11a06f1731104ee71@ec2-44-195-100-240.compute-1.amazonaws.com:5432/d6mtkon67hvk5t")
+    engine = create_engine("sqlite:///./week7_database.sqlite3")
     with Session(engine, autoflush=False) as session:
         db.session.begin()
         try:
