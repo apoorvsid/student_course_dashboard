@@ -50,7 +50,7 @@ def Home():
         if len(student) == 0:
             return render_template("no_student.html")
         else:
-            return render_template("Student_list.html", student=student)
+            return render_template("student_list.html", student=student)
 
 @app.route("/student/create", methods=["GET", "POST"])
 def get_data():
