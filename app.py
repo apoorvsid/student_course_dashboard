@@ -8,7 +8,8 @@ from sqlalchemy.orm import Session
 from sqlalchemy.orm import relationship
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///week7_database.sqlite3"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///week7_database.sqlite3"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://bdedexztrzqeil:d8405984fb3ecdb74936aa01be87eb35ab0d26ae899e71b7d965602af041a96d@ec2-3-217-14-181.compute-1.amazonaws.com:5432/df1e1vfuaqcank"
 
 db = SQLAlchemy()
 db.init_app(app)
@@ -59,7 +60,7 @@ def get_data():
         first_name = request.form["f_name"]
         last_name = request.form["l_name"]
 
-        engine = create_engine("sqlite:///./week7_database.sqlite3")
+        engine = create_engine("postgres://bdedexztrzqeil:d8405984fb3ecdb74936aa01be87eb35ab0d26ae899e71b7d965602af041a96d@ec2-3-217-14-181.compute-1.amazonaws.com:5432/df1e1vfuaqcank")
         with Session(engine, autoflush=False) as session:
             db.session.begin()
             try:
@@ -87,7 +88,7 @@ def update_info(student_iid):
         last_name = request.form["l_name"]
         c_id = request.form["course"]
 
-        engine = create_engine("sqlite:///./week7_database.sqlite3")
+        engine = create_engine("postgres://bdedexztrzqeil:d8405984fb3ecdb74936aa01be87eb35ab0d26ae899e71b7d965602af041a96d@ec2-3-217-14-181.compute-1.amazonaws.com:5432/df1e1vfuaqcank")
         with Session(engine, autoflush=False) as session:
             db.session.begin()
             try:
@@ -107,7 +108,7 @@ def update_info(student_iid):
 
 @app.route("/student/<int:student_iid>/delete", methods=["GET", "POST"])
 def delete_info(student_iid):
-    engine = create_engine("sqlite:///./week7_database.sqlite3")
+    engine = create_engine("postgres://bdedexztrzqeil:d8405984fb3ecdb74936aa01be87eb35ab0d26ae899e71b7d965602af041a96d@ec2-3-217-14-181.compute-1.amazonaws.com:5432/df1e1vfuaqcank")
     with Session(engine, autoflush=False) as session:
         db.session.begin()
         try:
@@ -136,7 +137,7 @@ def complete_info(student_iid):
 
 @app.route("/student/<int:student_id>/withdraw/<int:course_id>", methods=["GET","POST"])
 def withdraw_course(student_id, course_id):
-    engine = create_engine("sqlite:///./week7_database.sqlite3")
+    engine = create_engine("postgres://bdedexztrzqeil:d8405984fb3ecdb74936aa01be87eb35ab0d26ae899e71b7d965602af041a96d@ec2-3-217-14-181.compute-1.amazonaws.com:5432/df1e1vfuaqcank")
     with Session(engine, autoflush=False) as session:
         db.session.begin()
         try:
@@ -172,7 +173,7 @@ def get_course_data():
         c_code = request.form["code"]
         c_name = request.form["c_name"]
         c_desc = request.form["desc"]
-        engine = create_engine("sqlite:///./week7_database.sqlite3")
+        engine = create_engine("postgres://bdedexztrzqeil:d8405984fb3ecdb74936aa01be87eb35ab0d26ae899e71b7d965602af041a96d@ec2-3-217-14-181.compute-1.amazonaws.com:5432/df1e1vfuaqcank")
         with Session(engine, autoflush=False) as session:
             db.session.begin()
             try:
@@ -196,7 +197,7 @@ def update_course(course_id):
     elif request.method=="POST":
         n_name = request.form["c_name"]
         n_desc = request.form["desc"]
-        engine = create_engine("sqlite:///./week7_database.sqlite3")
+        engine = create_engine("postgres://bdedexztrzqeil:d8405984fb3ecdb74936aa01be87eb35ab0d26ae899e71b7d965602af041a96d@ec2-3-217-14-181.compute-1.amazonaws.com:5432/df1e1vfuaqcank")
         with Session(engine, autoflush=False) as session:
             db.session.begin()
             try:
@@ -212,7 +213,8 @@ def update_course(course_id):
 
 @app.route("/course/<int:course_id>/delete", methods=["GET", "POST"])
 def delete_course(course_id):
-    engine = create_engine("sqlite:///./week7_database.sqlite3")
+    # engine = create_engine("sqlite:///./week7_database.sqlite3")
+    engine = create_engine("postgres://bdedexztrzqeil:d8405984fb3ecdb74936aa01be87eb35ab0d26ae899e71b7d965602af041a96d@ec2-3-217-14-181.compute-1.amazonaws.com:5432/df1e1vfuaqcank")
     with Session(engine, autoflush=False) as session:
         db.session.begin()
         try:
