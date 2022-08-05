@@ -60,20 +60,17 @@ def get_data():
         roll_no = request.form["roll"]
         first_name = request.form["f_name"]
         last_name = request.form["l_name"]
-        engine = create_engine("sqlite:///./week7_database.sqlite3")
-        with Session(engine, autoflush=False) as session:
-            db.session.begin()
-            try:
-                student = Student(roll_number=roll_no,
-                                  first_name=first_name, last_name=last_name)
-                db.session.add(student)
-                db.session.flush()
+        try:
+            student = Student(roll_number=roll_no,
+                                first_name=first_name, last_name=last_name)
+            db.session.add(student)
+            db.session.flush()
 
-            except:
-                db.session.rollback()
-                return render_template("student_error.html")
-            else:
-                db.session.commit()
+        except:
+            db.session.rollback()
+            return render_template("student_error.html")
+        else:
+            db.session.commit()
         return redirect("/")
 
 @app.route("/student/<int:student_iid>/update", methods=["GET", "POST"])
@@ -88,40 +85,34 @@ def update_info(student_iid):
         last_name = request.form["l_name"]
         c_id = request.form["course"]
 
-        engine = create_engine("sqlite:///./week7_database.sqlite3")
-        with Session(engine, autoflush=False) as session:
-            db.session.begin()
-            try:
-                student = Student.query.get(student_iid)
-                student.first_name = first_name
-                student.last_name = last_name
-
-                c_name = Course.query.filter_by(course_id=c_id).first()
-                student_course = Enrollments(estudent_id=student.student_id, ecourse_id=c_name.course_id)
-                db.session.add(student_course)
-            except:
-                db.session.rollback()
-                raise
-            else:
-                db.session.commit()
-        return redirect("/")
-
-@app.route("/student/<int:student_iid>/delete", methods=["GET", "POST"])
-def delete_info(student_iid):
-    engine = create_engine("sqlite:///./week7_database.sqlite3")
-    with Session(engine, autoflush=False) as session:
-        db.session.begin()
         try:
-            student_id = Student.query.get(student_iid)
-            to_delete = Enrollments.query.filter_by(estudent_id=student_iid).all()
-            for i in to_delete:
-                db.session.delete(i)
-            db.session.delete(student_id)
+            student = Student.query.get(student_iid)
+            student.first_name = first_name
+            student.last_name = last_name
+
+            c_name = Course.query.filter_by(course_id=c_id).first()
+            student_course = Enrollments(estudent_id=student.student_id, ecourse_id=c_name.course_id)
+            db.session.add(student_course)
         except:
             db.session.rollback()
             raise
         else:
             db.session.commit()
+        return redirect("/")
+
+@app.route("/student/<int:student_iid>/delete", methods=["GET", "POST"])
+def delete_info(student_iid):
+    try:
+        student_id = Student.query.get(student_iid)
+        to_delete = Enrollments.query.filter_by(estudent_id=student_iid).all()
+        for i in to_delete:
+            db.session.delete(i)
+        db.session.delete(student_id)
+    except:
+        db.session.rollback()
+        raise
+    else:
+        db.session.commit()
     return redirect("/")
 
 @app.route("/student/<int:student_iid>", methods=["GET", "POST"])
@@ -137,22 +128,19 @@ def complete_info(student_iid):
 
 @app.route("/student/<int:student_id>/withdraw/<int:course_id>", methods=["GET","POST"])
 def withdraw_course(student_id, course_id):
-    engine = create_engine("sqlite:///./week7_database.sqlite3")
-    with Session(engine, autoflush=False) as session:
-        db.session.begin()
-        try:
-            enrol_id = Enrollments.query.filter_by(estudent_id=student_id)
-            final_enrol_id = None
-            for i in enrol_id:
-                if i.ecourse_id==course_id:
-                    final_enrol_id = i
-                    break
-            db.session.delete(final_enrol_id)
-        except:
-            db.session.rollback()
-            raise
-        else:
-            db.session.commit()
+    try:
+        enrol_id = Enrollments.query.filter_by(estudent_id=student_id)
+        final_enrol_id = None
+        for i in enrol_id:
+            if i.ecourse_id==course_id:
+                final_enrol_id = i
+                break
+        db.session.delete(final_enrol_id)
+    except:
+        db.session.rollback()
+        raise
+    else:
+        db.session.commit()
     return redirect("/")
 
 @app.route("/courses", methods=["GET","POST"])
@@ -173,19 +161,16 @@ def get_course_data():
         c_code = request.form["code"]
         c_name = request.form["c_name"]
         c_desc = request.form["desc"]
-        engine = create_engine("sqlite:///./week7_database.sqlite3")
-        with Session(engine, autoflush=False) as session:
-            db.session.begin()
-            try:
-                course = Course(course_code=c_code,
-                                  course_name=c_name, course_description=c_desc)
-                db.session.add(course)
-                db.session.flush()
-            except:
-                db.session.rollback()
-                return render_template("course_error.html")
-            else:
-                db.session.commit()
+        try:
+            course = Course(course_code=c_code,
+                                course_name=c_name, course_description=c_desc)
+            db.session.add(course)
+            db.session.flush()
+        except:
+            db.session.rollback()
+            return render_template("course_error.html")
+        else:
+            db.session.commit()
         return redirect("/courses")
 
 @app.route("/course/<int:course_id>/update", methods=["GET","POST"])
@@ -197,36 +182,30 @@ def update_course(course_id):
     elif request.method=="POST":
         n_name = request.form["c_name"]
         n_desc = request.form["desc"]
-        engine = create_engine("sqlite:///./week7_database.sqlite3")
-        with Session(engine, autoflush=False) as session:
-            db.session.begin()
-            try:
-                fcourse = Course.query.filter_by(course_id = course_id).first()
-                fcourse.course_name = n_name
-                fcourse.course_description = n_desc
-            except:
-                db.session.rollback()
-                raise
-            else:
-                db.session.commit()
-        return redirect("/courses")
-
-@app.route("/course/<int:course_id>/delete", methods=["GET", "POST"])
-def delete_course(course_id):
-    engine = create_engine("sqlite:///./week7_database.sqlite3")
-    with Session(engine, autoflush=False) as session:
-        db.session.begin()
         try:
-            fcourse = Course.query.get(course_id)
-            to_delete = Enrollments.query.filter_by(ecourse_id=course_id).all()
-            for i in to_delete:
-                db.session.delete(i)
-            db.session.delete(fcourse)
+            fcourse = Course.query.filter_by(course_id = course_id).first()
+            fcourse.course_name = n_name
+            fcourse.course_description = n_desc
         except:
             db.session.rollback()
             raise
         else:
             db.session.commit()
+        return redirect("/courses")
+
+@app.route("/course/<int:course_id>/delete", methods=["GET", "POST"])
+def delete_course(course_id):
+    try:
+        fcourse = Course.query.get(course_id)
+        to_delete = Enrollments.query.filter_by(ecourse_id=course_id).all()
+        for i in to_delete:
+            db.session.delete(i)
+        db.session.delete(fcourse)
+    except:
+        db.session.rollback()
+        raise
+    else:
+        db.session.commit()
     return redirect("/courses")
 
 @app.route("/course/<int:course_id>", methods=["GET", "POST"])
