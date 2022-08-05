@@ -74,7 +74,6 @@ def get_data():
                 return render_template("student_error.html")
             else:
                 db.session.commit()
-        session.remove() 
         return redirect("/")
 
 @app.route("/student/<int:student_iid>/update", methods=["GET", "POST"])
@@ -105,7 +104,6 @@ def update_info(student_iid):
                 raise
             else:
                 db.session.commit()
-        session.remove()
         return redirect("/")
 
 @app.route("/student/<int:student_iid>/delete", methods=["GET", "POST"])
@@ -124,7 +122,6 @@ def delete_info(student_iid):
             raise
         else:
             db.session.commit()
-    session.remove()
     return redirect("/")
 
 @app.route("/student/<int:student_iid>", methods=["GET", "POST"])
@@ -156,7 +153,6 @@ def withdraw_course(student_id, course_id):
             raise
         else:
             db.session.commit()
-    session.remove()
     return redirect("/")
 
 @app.route("/courses", methods=["GET","POST"])
@@ -190,7 +186,6 @@ def get_course_data():
                 return render_template("course_error.html")
             else:
                 db.session.commit()
-        session.remove()
         return redirect("/courses")
 
 @app.route("/course/<int:course_id>/update", methods=["GET","POST"])
@@ -214,7 +209,6 @@ def update_course(course_id):
                 raise
             else:
                 db.session.commit()
-        session.remove()
         return redirect("/courses")
 
 @app.route("/course/<int:course_id>/delete", methods=["GET", "POST"])
@@ -233,7 +227,6 @@ def delete_course(course_id):
             raise
         else:
             db.session.commit()
-    session.remove()
     return redirect("/courses")
 
 @app.route("/course/<int:course_id>", methods=["GET", "POST"])
